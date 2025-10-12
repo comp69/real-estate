@@ -1,0 +1,217 @@
+.vision-page {
+  padding-top: 80px;
+  background: #ffffff;
+}
+
+.vision-hero {
+  background: linear-gradient(135deg, #1a1a1a 0%, #084d94 50%, #0a66c2 100%);
+}
+
+.vision-mission {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  gap: 40px;
+  padding: 80px 0;
+}
+
+.vision-card.large {
+  background: white;
+  padding: 60px 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.vision-card .vision-icon {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 30px;
+  background: var(--gradient);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.vision-card h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: var(--primary);
+}
+
+.vision-card p {
+  font-size: 18px;
+  line-height: 1.8;
+  color: var(--gray);
+}
+
+.commitments-section {
+  padding: 80px 0;
+  background: var(--light-gray);
+}
+
+.commitments-section h2 {
+  text-align: center;
+  font-size: 42px;
+  margin-bottom: 60px;
+  color: var(--dark);
+}
+
+.commitments-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+.commitment-card {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 16px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.commitment-icon {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 20px;
+  background: var(--gradient);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.commitment-card h3 {
+  font-size: 22px;
+  margin-bottom: 12px;
+  color: var(--dark);
+}
+
+.commitment-card p {
+  color: var(--gray);
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+.future-section {
+  padding: 100px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  background: #ffffff;
+}
+
+.future-content h2 {
+  font-size: 42px;
+  margin-bottom: 24px;
+  color: var(--dark);
+}
+
+.future-intro {
+  font-size: 18px;
+  line-height: 1.8;
+  color: var(--gray);
+  margin-bottom: 40px;
+}
+
+.goals-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.goal-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background: var(--light-gray);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.goal-number {
+  width: 50px;
+  height: 50px;
+  background: var(--gradient);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.goal-item p {
+  font-size: 16px;
+  color: var(--dark);
+  font-weight: 500;
+}
+
+.future-image {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.future-image img {
+  width: 100%;
+  height: 600px;
+  object-fit: cover;
+}
+
+.vision-cta {
+  text-align: center;
+  padding: 80px 40px;
+  background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+  border-radius: 20px;
+  margin: 60px 0;
+}
+
+.vision-cta h2 {
+  font-size: 42px;
+  margin-bottom: 16px;
+  color: var(--dark);
+}
+
+.vision-cta p {
+  font-size: 18px;
+  color: var(--gray);
+  margin-bottom: 32px;
+}
+
+.vision-mission {
+    grid-template-columns: 1fr;
+  }
+
+  .vision-card h2 {
+    font-size: 28px;
+  }
+
+  .commitments-section h2 {
+    font-size: 32px;
+  }
+
+  .future-section {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .future-content h2 {
+    font-size: 32px;
+  }
+
+  .future-image img {
+    height: 400px;
+  }
+
+  .vision-cta h2 {
+    font-size: 32px;
+  }
