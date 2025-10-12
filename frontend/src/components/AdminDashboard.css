@@ -1,0 +1,246 @@
+.admin-dashboard {
+  min-height: 100vh;
+  background: var(--light-gray);
+}
+
+.admin-header {
+  background: white;
+  border-bottom: 1px solid var(--light-gray);
+  padding: 24px 0;
+}
+
+.admin-header-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-header h1 {
+  font-size: 28px;
+  color: var(--dark);
+  margin-bottom: 4px;
+}
+
+.admin-header p {
+  color: var(--gray);
+  font-size: 15px;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.home-btn,
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: transparent;
+  border: 2px solid var(--light-gray);
+  border-radius: 8px;
+  color: var(--gray);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.home-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: rgba(10, 102, 194, 0.05);
+}
+
+.logout-btn:hover {
+  border-color: #dc2626;
+  color: #dc2626;
+  background: #fee;
+}
+
+.admin-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+.admin-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.admin-toolbar h2 {
+  font-size: 24px;
+  color: var(--dark);
+}
+
+.loading-state,
+.empty-state {
+  background: white;
+  padding: 80px 20px;
+  text-align: center;
+  border-radius: 12px;
+}
+
+.empty-state h3 {
+  font-size: 24px;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+
+.empty-state p {
+  color: var(--gray);
+}
+
+.projects-table {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.projects-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.projects-table thead {
+  background: var(--light-gray);
+}
+
+.projects-table th {
+  text-align: left;
+  padding: 16px 20px;
+  font-weight: 600;
+  color: var(--dark);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.projects-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--light-gray);
+}
+
+.projects-table tr:last-child td {
+  border-bottom: none;
+}
+
+.table-image {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.project-title {
+  font-weight: 600;
+  color: var(--dark);
+  max-width: 250px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.badge-type {
+  background: var(--light-gray);
+  color: var(--primary);
+}
+
+.badge-status {
+  color: white;
+}
+
+.badge-upcoming {
+  background: #f59e0b;
+}
+
+.badge-ongoing {
+  background: #10b981;
+}
+
+.badge-completed {
+  background: #6366f1;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.action-btn {
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-btn.view {
+  background: #e0f2fe;
+  color: #0284c7;
+}
+
+.action-btn.view:hover {
+  background: #0284c7;
+  color: white;
+}
+
+.action-btn.edit {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.action-btn.edit:hover {
+  background: #d97706;
+  color: white;
+}
+
+.action-btn.delete {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.action-btn.delete:hover {
+  background: #dc2626;
+  color: white;
+}
+
+@media (max-width: 1200px) {
+  .projects-table {
+    overflow-x: auto;
+  }
+
+  .projects-table table {
+    min-width: 900px;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-header-content {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .admin-toolbar {
+    flex-direction: column;
+    gap: 20px;
+    align-items: stretch;
+  }
+}
