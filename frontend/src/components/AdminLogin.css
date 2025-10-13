@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #0a66c2 0%, #084d94 50%, #1a1a1a 100%);
+  background: var(--gradient);
   padding: 20px;
   position: relative;
 }
@@ -16,11 +16,11 @@
   align-items: center;
   gap: 8px;
   padding: 12px 24px;
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--card-bg);
   backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  border: 2px solid var(--border-color);
   border-radius: 12px;
-  color: var(--dark);
+  color: var(--text-primary);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -36,7 +36,7 @@
 }
 
 .login-container {
-  background: white;
+  background: var(--card-bg);
   border-radius: 20px;
   padding: 50px 40px;
   max-width: 450px;
@@ -63,12 +63,12 @@
 
 .login-header h1 {
   font-size: 32px;
-  color: var(--dark);
+  color: var(--text-primary);
   margin-bottom: 8px;
 }
 
 .login-header p {
-  color: var(--gray);
+  color: var(--text-secondary);
   font-size: 16px;
 }
 
@@ -108,6 +108,9 @@
   font-size: 15px;
   transition: all 0.3s;
   font-family: inherit;
+  background: var(--surface);
+  color: var(--text-primary);
+  border: 2px solid var(--border-color);
 }
 
 .form-group input:focus {

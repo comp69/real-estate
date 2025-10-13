@@ -71,8 +71,8 @@ const Footer = () => {
         <div className="container">
           <p>&copy; {new Date().getFullYear()} China Group Pakistan. All rights reserved.</p>
           <div className="footer-links">
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/terms">Terms of Service</a>
+            <a href="/">Privacy Policy</a>
+            <a href="/">Terms of Service</a>
           </div>
         </div>
       </div>

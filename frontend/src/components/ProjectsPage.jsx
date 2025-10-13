@@ -67,13 +67,13 @@ const ProjectsPage = () => {
         </div>
       </motion.div>
 
-      <div className="container">
-        <motion.div 
-          className="filters-section"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-        >
+      <motion.div 
+        className="filters-section"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4 }}
+      >
+        <div className="filters-container">
           <div className="search-box">
             <Search size={20} />
             <input
@@ -142,8 +142,10 @@ const ProjectsPage = () => {
               </button>
             </div>
           </div>
-        </motion.div>
+        </div>
+      </motion.div>
 
+      <div className="projects-content">
         <div className="projects-count">
           <p>Showing {filteredProjects.length} projects</p>
         </div>

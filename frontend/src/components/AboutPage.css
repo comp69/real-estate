@@ -1,6 +1,6 @@
 .about-page {
   padding-top: 80px;
-  background: #ffffff;
+  background: var(--background);
 }
 
 .about-story {
@@ -14,7 +14,7 @@
 .story-content h2 {
   font-size: 42px;
   margin-bottom: 24px;
-  color: var(--dark);
+  color: var(--text-primary);
 }
 
 .story-content p {
@@ -38,7 +38,7 @@
 
 .about-values {
   padding: 80px 0;
-  background: var(--light-gray);
+  background: var(--surface);
 }
 
 .about-values h2 {
@@ -55,7 +55,7 @@
 }
 
 .value-card {
-  background: white;
+  background: var(--card-bg);
   padding: 40px 30px;
   border-radius: 16px;
   text-align: center;
@@ -167,7 +167,7 @@
 
 .about-team {
   padding: 80px 0;
-  background: var(--light-gray);
+  background: var(--surface);
 }
 
 .team-content {
@@ -201,11 +201,12 @@
     height: 350px;
   }
 
+  .story-content h2,
   .about-values h2,
   .about-timeline h2,
   .team-content h2 {
-    font-size: 32px;
-  }
+    color: var(--text-primary);
+}
 
   .timeline::before {
     left: 30px;
@@ -226,4 +227,11 @@
   .timeline-content {
     padding-left: 70px !important;
     padding-right: 0 !important;
+  }
+
+  .story-content p,
+  .value-card p,
+  .timeline-content p,
+  .team-content p {
+    color: var(--text-secondary);
   }

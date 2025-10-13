@@ -30,22 +30,36 @@ const ContactPage = () => {
 
   const contactInfo = [
     {
-      icon: Phone,
-      title: 'Phone',
-      details: ['+92 21 1234 5678', '+92 300 1234567'],
-      action: 'tel:+922112345678'
-    },
-    {
       icon: Mail,
       title: 'Email',
-      details: ['info@chinagrouppk.com', 'sales@chinagrouppk.com'],
+      details: ['info@chinagrouppk.com'],
       action: 'mailto:info@chinagrouppk.com'
     },
     {
       icon: MapPin,
-      title: 'Office Address',
-      details: ['Office # 123, Building XYZ', 'Main Shahrah-e-Faisal, Karachi'],
+      title: 'Site Office',
+      details: ['Office # 207, 2nd Floor, Moiz Centre', 'Plot # A-59, Block 13-C, Main University Road', 'Gulshan-e-Iqbal, Karachi'],
+      action: null,
+      
+    },
+    {
+      icon: Phone,
+      title: 'Site Office Contact info',
+      details: ['+92-21-35311181-84', '+92321-8200410'],
+      action: 'tel:+922134546166'
+    },
+    {
+      icon: MapPin,
+      title: 'Head Office',
+      details: ['Office # 207, 2nd Floor, Moiz Centre', 'Plot # A-59, Block 13-C, Main University Road', 'Gulshan-e-Iqbal, Karachi',
+        ],
       action: null
+    },
+    {
+      icon: Phone,
+      title: 'Head Office Contact info',
+      details: ['+92 21 36640311', ' UAN #111-CHINA-1 (244621)'],
+      action: 'tel:+922134546166'
     },
     {
       icon: Clock,
