@@ -38,7 +38,7 @@ const AdminLogin = () => {
         onClick={() => navigate('/')}
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
-        whileHover={{ x: -5 }}
+        whileHover={{ scale: 1.05, x: -5 }}
         whileTap={{ scale: 0.95 }}
       >
         <ArrowLeft size={20} />

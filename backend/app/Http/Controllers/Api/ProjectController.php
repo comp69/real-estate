@@ -22,11 +22,22 @@ class ProjectController extends Controller
         return response()->json($projects);
     }
 
+    // Get project by slug (for public frontend)
     public function show($slug)
     {
         $project = Project::with(['images', 'features', 'floorPlans', 'paymentPlans'])
             ->where('slug', $slug)
             ->where('is_active', true)
+            ->firstOrFail();
+
+        return response()->json($project);
+    }
+
+    // Get project by ID (for admin panel)
+    public function showById($id)
+    {
+        $project = Project::with(['images', 'features', 'floorPlans', 'paymentPlans'])
+            ->where('id', $id)
             ->firstOrFail();
 
         return response()->json($project);
@@ -63,6 +74,7 @@ class ProjectController extends Controller
         }
 
         $project = Project::create($data);
+        $project->load(['images', 'features', 'floorPlans', 'paymentPlans']);
 
         return response()->json($project, 201);
     }
@@ -82,7 +94,7 @@ class ProjectController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        $data = $request->except(['_method', 'contact_details']);
+        $data = $request->except(['_method']);
 
         if ($request->hasFile('main_image')) {
             if ($project->main_image) {
@@ -102,12 +114,28 @@ class ProjectController extends Controller
         }
 
         // ✅ Safely convert string/checkbox values to booleans
-        $data['is_featured'] = $request->boolean('is_featured');
-        $data['is_active'] = $request->boolean('is_active', true);
+        if ($request->has('is_featured')) {
+            $data['is_featured'] = $request->boolean('is_featured');
+        }
+        
+        if ($request->has('is_active')) {
+            $data['is_active'] = $request->boolean('is_active');
+        }
 
+        // Convert numeric fields
+        if ($request->has('starting_price')) {
+            $data['starting_price'] = $request->starting_price;
+        }
+
+        if ($request->has('total_units')) {
+            $data['total_units'] = $request->total_units;
+        }
+
+        // Update the project
         $project->update($data);
 
         // Return updated project with relationships
+        $project->refresh();
         $project->load(['images', 'features', 'floorPlans', 'paymentPlans']);
 
         return response()->json($project);
@@ -160,6 +188,18 @@ class ProjectController extends Controller
         return response()->json($image, 201);
     }
 
+    // Add delete image method
+    public function deleteImage($projectId, $imageId)
+    {
+        $project = Project::findOrFail($projectId);
+        $image = $project->images()->findOrFail($imageId);
+        
+        Storage::disk('public')->delete($image->image_path);
+        $image->delete();
+
+        return response()->json(['message' => 'Image deleted successfully']);
+    }
+
     public function addFeature(Request $request, $id)
     {
         $project = Project::findOrFail($id);
@@ -177,6 +217,16 @@ class ProjectController extends Controller
         $feature = $project->features()->create($request->all());
 
         return response()->json($feature, 201);
+    }
+
+    // Add delete feature method
+    public function deleteFeature($projectId, $featureId)
+    {
+        $project = Project::findOrFail($projectId);
+        $feature = $project->features()->findOrFail($featureId);
+        $feature->delete();
+
+        return response()->json(['message' => 'Feature deleted successfully']);
     }
 
     public function addFloorPlan(Request $request, $id)
@@ -206,6 +256,18 @@ class ProjectController extends Controller
         return response()->json($floorPlan, 201);
     }
 
+    // Add delete floor plan method
+    public function deleteFloorPlan($projectId, $floorPlanId)
+    {
+        $project = Project::findOrFail($projectId);
+        $floorPlan = $project->floorPlans()->findOrFail($floorPlanId);
+        
+        Storage::disk('public')->delete($floorPlan->image_path);
+        $floorPlan->delete();
+
+        return response()->json(['message' => 'Floor plan deleted successfully']);
+    }
+
     public function addPaymentPlan(Request $request, $id)
     {
         $project = Project::findOrFail($id);
@@ -228,5 +290,15 @@ class ProjectController extends Controller
         $paymentPlan = $project->paymentPlans()->create($data);
 
         return response()->json($paymentPlan, 201);
+    }
+
+    // Add delete payment plan method
+    public function deletePaymentPlan($projectId, $paymentPlanId)
+    {
+        $project = Project::findOrFail($projectId);
+        $paymentPlan = $project->paymentPlans()->findOrFail($paymentPlanId);
+        $paymentPlan->delete();
+
+        return response()->json(['message' => 'Payment plan deleted successfully']);
     }
 }

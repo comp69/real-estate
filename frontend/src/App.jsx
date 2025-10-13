@@ -1,5 +1,6 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
+import { useEffect } from 'react';
 import { ThemeProvider } from './components/ThemeContext';
 import { ToastProvider } from './components/Toast';
 import Navbar from './components/Navbar';
@@ -18,12 +19,24 @@ import AdminProjectForm from './components/AdminProjectForm';
 
 import './App.css';
 
+// Scroll to top component
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
 function App() {
   return (
     <ThemeProvider>
       <ToastProvider>
         <Router>
           <div className="app">
+            <ScrollToTop />
             <Routes>
               {/* Admin Routes */}
               <Route path="/admin/login" element={<AdminLogin />} />

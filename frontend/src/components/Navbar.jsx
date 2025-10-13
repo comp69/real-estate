@@ -26,7 +26,7 @@ const Navbar = () => {
     { path: '/projects', label: 'Projects' },
     { path: '/vision', label: 'Our Vision' },
     { path: '/contact', label: 'Contact' },
-    { path: '/admin/login', label: 'Admin Login' },
+    { path: '/admin/login', label: 'Login', isLogin: true },
   ];
 
   return (
@@ -39,10 +39,10 @@ const Navbar = () => {
       <div className="nav-container">
         <Link to="/" className="nav-logo-link">
           <motion.img
-            src="/frontend/src/components/logo.png"
+            src="/frontend/src/assets/logo.png"
             alt="China Group"
             className="nav-logo-img"
-            whileHover={{ scale: 1.05, rotate: 5 }}
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onError={(e) => {
               e.target.style.display = 'none';
@@ -55,7 +55,7 @@ const Navbar = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-           <a href="/frontend/src/components/logo.png"/> CHINA GROUP
+            CHINA GROUP
           </motion.div>
         </Link>
 
@@ -64,7 +64,9 @@ const Navbar = () => {
             <Link
               key={link.path}
               to={link.path}
-              className={`nav-link ${location.pathname === link.path ? 'active' : ''}`}
+              className={`nav-link ${location.pathname === link.path ? 'active' : ''} ${
+                link.isLogin ? 'login-link' : ''
+              }`}
             >
               <motion.span whileHover={{ y: -2 }} whileTap={{ y: 0 }}>
                 {link.label}
@@ -144,7 +146,9 @@ const Navbar = () => {
               >
                 <Link
                   to={link.path}
-                  className={`mobile-link ${location.pathname === link.path ? 'active' : ''}`}
+                  className={`mobile-link ${location.pathname === link.path ? 'active' : ''} ${
+                    link.isLogin ? 'login-link' : ''
+                  }`}
                   onClick={() => setMobileOpen(false)}
                 >
                   {link.label}
