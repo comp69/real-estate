@@ -265,18 +265,6 @@ const ProjectDetail = () => {
           <h2>Interested in This Project?</h2>
           <p>Contact us for more information and site visits</p>
           <div className="contact-buttons">
-            {project.contact_details?.phone && (
-              <a href={`tel:${project.contact_details.phone}`} className="btn btn-primary">
-                <Phone size={20} />
-                Call Now
-              </a>
-            )}
-            {project.contact_details?.email && (
-              <a href={`mailto:${project.contact_details.email}`} className="btn btn-secondary">
-                <Mail size={20} />
-                Email Us
-              </a>
-            )}
             {project.brochure_pdf && (
               <a href={`http://localhost:8000/storage/${project.brochure_pdf}`} className="btn btn-outline" download>
                 <Download size={20} />

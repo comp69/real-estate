@@ -174,7 +174,7 @@ const VisionPage = () => {
         >
           <h2>Be Part of Our Vision</h2>
           <p>Join thousands of satisfied customers who have made their dreams come true with China Group</p>
-          <a href="/contact" className="btn btn-primary">Start Your Journey</a>
+          
         </motion.section>
       </div>
     </div>

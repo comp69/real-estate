@@ -541,6 +541,22 @@
   margin-top: 8px;
 }
 
+/* Help box at bottom of admin form */
+.admin-form-help {
+  max-width: 1200px;
+  margin: 20px auto 60px;
+  padding: 0 20px;
+}
+
+.help-box {
+  background: var(--surface);
+  border: 1px solid var(--border-color);
+  padding: 18px 20px;
+  border-radius: 10px;
+  color: var(--text-secondary);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+}
+
 .upload-hint {
   margin-top: 12px;
   font-size: 14px;

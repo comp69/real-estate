@@ -70,10 +70,16 @@ const AdminProjectForm = () => {
     }
   }, [id, isEdit, navigate]);
 
-  const loadProject = async () => {
+  // loadProject optionally accepts an explicit id. If not provided,
+  // it will use route `id` or the local `projectId` state.
+  const loadProject = async (explicitId) => {
+    const idToUse = explicitId || id || projectId;
+    if (!idToUse) return;
+
     setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:8000/api/admin/projects/${id}`);
+      // Admin endpoint expects numeric ID under /api/admin/projects/:id
+      const response = await axios.get(`http://localhost:8000/api/admin/projects/${idToUse}`);
       const project = response.data;
       setProjectData(project);
       
@@ -100,7 +106,7 @@ const AdminProjectForm = () => {
       }
 
       // Set gallery images
-      setGalleryImages(project.images || []);
+  setGalleryImages(project.images || []);
 
       // Set features
       setFeatures(project.features || []);
@@ -178,8 +184,8 @@ const AdminProjectForm = () => {
       let response;
       if (isEdit) {
         console.log(`Updating project ${projectId}...`);
-        // Use POST with _method=PUT for FormData
-        response = await axios.post(`http://localhost:8000/api/projects/${projectId}`, data, {
+        // Use POST with _method=PUT for FormData against admin endpoint
+        response = await axios.post(`http://localhost:8000/api/admin/projects/${projectId}`, data, {
           headers: { 
             'Content-Type': 'multipart/form-data',
             'Accept': 'application/json'
@@ -197,16 +203,19 @@ const AdminProjectForm = () => {
             'Accept': 'application/json'
           }
         });
-        setProjectId(response.data.id);
+        const newId = response.data.id;
+        setProjectId(newId);
         showToast('Project created successfully! You can now add gallery, features, etc.', 'success');
+        // Make the form switch into edit mode and load the fresh admin data
+        await loadProject(newId);
       }
       
       console.log('Response:', response.data);
-      // Reload project data to get updated information
+      // Reload project data to get updated information (ensure we use numeric id)
       if (isEdit) {
         await loadProject();
       } else {
-        setProjectId(response.data.id);
+        // already loaded above for new project
       }
     } catch (error) {
       console.error('Error saving project:', error);
@@ -369,11 +378,11 @@ const AdminProjectForm = () => {
   };
 
   const tabs = [
-    { id: 'basic', label: 'Basic Info' },
-    { id: 'gallery', label: 'Gallery' },
-    { id: 'features', label: 'Features' },
-    { id: 'floorplans', label: 'Floor Plans' },
-    { id: 'payment', label: 'Payment Plans' }
+    { id: 'basic', label: 'Basic Info ' },
+    { id: 'gallery', label: 'Gallery ' },
+    { id: 'features', label: 'Features ' },
+    { id: 'floorplans', label: 'Floor Plans ' },
+    { id: 'payment', label: 'Payment Plans ' }
   ];
 
   if (loading && isEdit) {
@@ -566,17 +575,6 @@ const AdminProjectForm = () => {
                 </div>
 
                 <div className="form-group full">
-                  <label className="checkbox-label">
-                    <input
-                      type="checkbox"
-                      checked={formData.is_active}
-                      onChange={(e) => setFormData({ ...formData, is_active: e.target.checked })}
-                    />
-                    Active (Visible to public)
-                  </label>
-                </div>
-
-                <div className="form-group full">
                   <label>Main Project Image *</label>
                   <div className="image-upload-area">
                     {mainImagePreview && (
@@ -628,7 +626,6 @@ const AdminProjectForm = () => {
               {projectId && (
                 <div className="project-id-info">
                   <p>Project ID: <strong>{projectId}</strong></p>
-                  <p className="info-note">💡 Save basic info first, then you can add gallery images, features, floor plans, and payment plans using the tabs above.</p>
                 </div>
               )}
             </motion.div>
@@ -695,6 +692,10 @@ const AdminProjectForm = () => {
               )}
             </motion.div>
           )}
+        </div>
+      </div>
+
+
 
           {activeTab === 'features' && (
             <motion.div 
@@ -1035,8 +1036,6 @@ const AdminProjectForm = () => {
             </motion.div>
           )}
         </div>
-      </div>
-    </div>
   );
 };
 

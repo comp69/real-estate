@@ -193,6 +193,25 @@
   border-bottom: none;
 }
 
+/* ✅ Improved hover effect for all themes */
+.projects-table tr {
+  /* keep table rows visually stable; no hover highlight */
+  transition: none;
+}
+
+.projects-table tr:hover {
+  background-color: transparent !important;
+}
+
+/* Ensure theme-specific hover rules do not apply */
+:root[style*="--card-bg: #ffffff"] .projects-table tr:hover {
+  background-color: transparent !important;
+}
+
+.dark-mode .projects-table tr:hover {
+  background-color: transparent !important;
+}
+
 .table-image-container {
   position: relative;
   display: inline-block;
@@ -399,6 +418,60 @@
   font-size: 14px;
 }
 
+/* ✅ Theme-synced Add Project button */
+.btn-primary {
+  background: var(--gradient);
+  color: white !important;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s;
+  text-decoration: none !important;
+  box-shadow: var(--shadow-colored);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  background: var(--primary-dark);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s;
+}
+
+.btn-outline:hover {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-outline.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 @media (max-width: 1200px) {
   .admin-header-content {
     flex-direction: column;
@@ -461,58 +534,4 @@
     width: 32px;
     height: 32px;
   }
-
-  .btn-primary {
-  background: var(--gradient);
-  color: white !important;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.3s;
-  text-decoration: none !important;
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-colored);
-  color: white !important;
-  text-decoration: none;
-}
-
-  .btn-primary:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
-  }
-
-  .btn-outline {
-    background: transparent;
-    color: var(--primary);
-    border: 2px solid var(--primary);
-    padding: 12px 24px;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s;
-  }
-
-  .btn-outline:hover {
-    background: var(--primary);
-    color: white;
-  }
-
-  .btn-outline.disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    pointer-events: none;
-  }
-  
 }

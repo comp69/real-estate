@@ -54,13 +54,6 @@ const HomePage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <Link to="/projects" className="btn btn-primary">
-              Explore Projects
-              <ArrowRight size={20} />
-            </Link>
-            <Link to="/contact" className="btn btn-secondary">
-              Contact Us
-            </Link>
           </motion.div>
         </div>
         <motion.div
@@ -107,7 +100,6 @@ const HomePage = () => {
             viewport={{ once: true }}
           >
             <h2>Featured Projects</h2>
-            <p>Discover our latest residential and commercial developments</p>
           </motion.div>
 
           <div className="projects-grid">
@@ -147,18 +139,6 @@ const HomePage = () => {
               </motion.div>
             ))}
           </div>
-
-          <motion.div
-            className="view-all"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-          >
-            <Link to="/projects" className="btn btn-outline">
-              View All Projects
-              <ArrowRight size={20} />
-            </Link>
-          </motion.div>
         </div>
       </section>
 
@@ -172,10 +152,6 @@ const HomePage = () => {
         >
           <h2>Ready to Find Your Dream Home?</h2>
           <p>Let our experts guide you through the journey</p>
-          <Link to="/contact" className="btn btn-primary">
-            Get Started Today
-            <ArrowRight size={20} />
-          </Link>
         </motion.div>
       </section>
     </div>

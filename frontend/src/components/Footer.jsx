@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Facebook, Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
 import './Footer.css';
+import logoImg from '../assets/logo.png';
 
 const Footer = () => {
   return (
@@ -9,9 +10,10 @@ const Footer = () => {
         <div className="container">
           <div className="footer-grid">
             <div className="footer-col">
-              <h3 className="footer-logo">CHINA GROUP</h3>
-              <p>Building dreams and creating futures since 1998. Your trusted partner in real estate development.</p>
-              <div className="social-links">
+              <div className="footer-logo">
+                <img src={logoImg} alt="China Group" className="footer-logo-img" />
+              </div>
+              {/* <div className="social-links">
                 <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
                   <Facebook size={20} />
                 </a>
@@ -21,7 +23,7 @@ const Footer = () => {
                 <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
                   <Linkedin size={20} />
                 </a>
-              </div>
+              </div> */}
             </div>
 
             <div className="footer-col">

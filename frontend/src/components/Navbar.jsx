@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Palette } from 'lucide-react';
 import { useTheme } from './ThemeContext';
 import './Navbar.css';
+import logoImg from '../assets/logo.png';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -39,7 +40,7 @@ const Navbar = () => {
       <div className="nav-container">
         <Link to="/" className="nav-logo-link">
           <motion.img
-            src="/frontend/src/assets/logo.png"
+            src={logoImg}
             alt="China Group"
             className="nav-logo-img"
             whileHover={{ scale: 1.05 }}
