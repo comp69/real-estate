@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { MapPin, Home, Bed, Bath, Square, Phone, Mail, Download } from 'lucide-react';
+import { MapPin, Home, Bed, Bath, Square, Phone, Mail, Download, X } from 'lucide-react';
 import axios from 'axios';
 import './ProjectDetail.css';
 
@@ -10,12 +10,24 @@ const ProjectDetail = () => {
   const [project, setProject] = useState(null);
   const [activeTab, setActiveTab] = useState('overview');
   const [selectedImage, setSelectedImage] = useState(0);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalImage, setModalImage] = useState('');
 
   useEffect(() => {
     axios.get(`http://localhost:8000/api/projects/${slug}`)
       .then(res => setProject(res.data))
       .catch(err => console.error(err));
   }, [slug]);
+
+  const openImageModal = (imageUrl) => {
+    setModalImage(imageUrl);
+    setModalOpen(true);
+  };
+
+  const closeImageModal = () => {
+    setModalOpen(false);
+    setModalImage('');
+  };
 
   if (!project) return <div className="loading">Loading...</div>;
 
@@ -26,6 +38,21 @@ const ProjectDetail = () => {
 
   return (
     <div className="project-detail">
+      {/* Image Modal */}
+      {modalOpen && (
+        <div className="image-modal" onClick={closeImageModal}>
+          <button className="image-modal-close" onClick={closeImageModal}>
+            <X size={24} />
+          </button>
+          <img
+            src={modalImage}
+            alt="Full size"
+            className="image-modal-content"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
+
       {/* Hero Gallery */}
       <div className="project-gallery">
         <motion.div 
@@ -37,6 +64,7 @@ const ProjectDetail = () => {
             src={`http://localhost:8000/storage/${allImages[selectedImage]}`}
             alt={project.title}
             onError={(e) => e.target.src = 'https://via.placeholder.com/1200x600?text=Project'}
+            onClick={() => openImageModal(`http://localhost:8000/storage/${allImages[selectedImage]}`)}
           />
         </motion.div>
         <div className="thumbnail-strip">
@@ -163,6 +191,7 @@ const ProjectDetail = () => {
                       src={`http://localhost:8000/storage/${plan.image_path}`}
                       alt={plan.title}
                       onError={(e) => e.target.src = 'https://via.placeholder.com/600x400?text=Floor+Plan'}
+                      onClick={() => openImageModal(`http://localhost:8000/storage/${plan.image_path}`)}
                     />
                     <div className="floorplan-info">
                       <h3>{plan.title}</h3>

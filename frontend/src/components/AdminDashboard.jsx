@@ -30,7 +30,7 @@ const AdminDashboard = () => {
       .then(res => {
         setProjects(res.data);
         setLoading(false);
-        showToast(`Loaded ${res.data.length} projects successfully`, 'success');
+        // showToast(`Loaded ${res.data.length} projects successfully`, 'success');
       })
       .catch(err => {
         console.error(err);

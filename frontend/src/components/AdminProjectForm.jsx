@@ -406,7 +406,7 @@ const AdminProjectForm = () => {
               {projectData.status}
             </span>
             {projectData.is_featured && (
-              <span className="featured-badge">Featured</span>
+              <span className="featured-badge"></span>
             )}
           </div>
         )}

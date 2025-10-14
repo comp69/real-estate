@@ -32,31 +32,39 @@
 }
 
 .home-btn,
-.logout-btn {
+.logout-btn,
+.refresh-btn {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 12px 20px;
-  background: transparent;
-  border: 2px solid var(--light-gray);
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
   border-radius: 8px;
-  color: var(--gray);
+  color: var(--text-primary);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
   font-size: 14px;
+  text-decoration: none !important;
+}
+
+.home-btn:hover,
+.logout-btn:hover,
+.refresh-btn:hover {
+  text-decoration: none !important;
 }
 
 .home-btn:hover {
   border-color: var(--primary);
   color: var(--primary);
-  background: rgba(10, 102, 194, 0.05);
+  background: var(--surface);
 }
 
 .logout-btn:hover {
   border-color: #dc2626;
   color: #dc2626;
-  background: #fee;
+  background: var(--surface);
 }
 
 .admin-container {
@@ -453,4 +461,58 @@
     width: 32px;
     height: 32px;
   }
+
+  .btn-primary {
+  background: var(--gradient);
+  color: white !important;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s;
+  text-decoration: none !important;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-colored);
+  color: white !important;
+  text-decoration: none;
+}
+
+  .btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s;
+  }
+
+  .btn-outline:hover {
+    background: var(--primary);
+    color: white;
+  }
+
+  .btn-outline.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  
 }

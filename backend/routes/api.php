@@ -13,7 +13,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/projects/{id}', [ProjectController::class, 'showById'])->where('id', '[0-9]+');
 });
 
-// Project CRUD (numeric ID only)
+// Project uploads and management
 Route::post('/projects', [ProjectController::class, 'store']);
 Route::post('/projects/{id}', [ProjectController::class, 'update'])->where('id', '[0-9]+'); // POST with _method=PUT
 Route::put('/projects/{id}', [ProjectController::class, 'update'])->where('id', '[0-9]+'); // Also support direct PUT

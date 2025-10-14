@@ -230,4 +230,37 @@
     padding-left: 70px !important;
     padding-right: 0 !important;
   }
+
+  a {
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+}
+
+/* Remove default blue/purple link colors */
+a:link, a:visited, a:active {
+  color: inherit;
+}
+
+/* Theme-consistent link colors */
+a:not(.btn):not(.nav-link):not(.tab):not(.action-btn) {
+  color: var(--primary);
+  font-weight: 500;
+}
+
+a:not(.btn):not(.nav-link):not(.tab):not(.action-btn):hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Ensure buttons maintain their styles */
+.btn, .nav-link, .tab, .action-btn {
+  text-decoration: none !important;
+}
+
+.btn:hover, .nav-link:hover, .tab:hover, .action-btn:hover {
+  text-decoration: none !important;
+}
+
 }

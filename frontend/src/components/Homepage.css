@@ -19,7 +19,7 @@
   background: 
     radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
     radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-  animation: heroFloat 20s ease-in-out infinite;
+  will-change: transform, opacity;
 }
 
 @keyframes heroFloat {
@@ -32,14 +32,19 @@
     opacity: 0.8;
   }
 }
+/* commented out for optimization if need uncomment */
 
-.hero::before {
+/* .hero::before {
   content: '';
   position: absolute;
   inset: 0;
   background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="none"/><circle cx="50" cy="50" r="40" stroke="rgba(255,255,255,0.03)" stroke-width="2" fill="none"/></svg>');
   background-size: 100px 100px;
   animation: patternMove 30s linear infinite;
+} */
+
+.hero::before {
+  display: none;
 }
 
 @keyframes patternMove {
@@ -235,6 +240,11 @@
 
 .project-card a {
   text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.project-card:hover a {
   color: inherit;
 }
 
@@ -454,4 +464,72 @@
   .featured-projects {
     padding: 80px 0;
   }
+
+.btn-primary,
+.btn-secondary,
+.btn-outline {
+  text-decoration: none !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+}
+
+.btn-primary {
+  background: var(--gradient);
+  color: white !important;
+  border: none;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-colored);
+  color: white !important;
+  text-decoration: none;
+}
+
+.btn-secondary {
+  background: white;
+  color: var(--primary) !important;
+  border: 2px solid white;
+}
+
+.btn-secondary:hover {
+  background: transparent;
+  color: white !important;
+  border-color: white;
+  text-decoration: none;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--primary) !important;
+  border: 2px solid var(--primary);
+}
+
+.btn-outline:hover {
+  background: var(--primary);
+  color: white !important;
+  text-decoration: none;
+}
+
+.stat-card {
+  will-change: transform;
+}
+
+.project-card {
+  will-change: transform;
+}
+
+.project-image img {
+  will-change: transform;
+}
+
 }

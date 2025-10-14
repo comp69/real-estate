@@ -71,6 +71,28 @@
 .submit-btn {
   width: 100%;
   margin-top: 10px;
+  background: var(--gradient);
+  color: white;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s;
+}
+
+.submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-colored);
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .contact-cards {
@@ -119,11 +141,14 @@
 .contact-info-card a {
   color: var(--primary);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
+  transition: all 0.3s;
+  display: inline-block;
 }
 
 .contact-info-card a:hover {
-  text-decoration: underline;
+  color: var(--primary-dark);
+  transform: translateX(4px);
 }
 
 .map-container {
@@ -179,5 +204,48 @@
   .contact-info-section {
     padding: 0;
   }
+
+  .submit-btn {
+  width: 100%;
+  margin-top: 10px;
+  background: var(--gradient);
+  color: white;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s;
+  font-family: inherit;
+}
+
+.submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-colored);
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Themed Links */
+.contact-info-card a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s;
+  display: inline-block;
+}
+
+.contact-info-card a:hover {
+  color: var(--primary-dark);
+  transform: translateX(4px);
+}
+
 }
 
