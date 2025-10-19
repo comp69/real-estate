@@ -124,10 +124,17 @@
 }
 
 .empty-state {
-  background: white;
-  padding: 80px 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 2rem;
   text-align: center;
-  border-radius: 12px;
+  margin: 2rem auto;
+  max-width: 400px;
+  min-width: 200px;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -248,9 +255,42 @@
   text-transform: uppercase;
 }
 
-.project-title {
+/* Empty state card for no projects */
+.empty-state {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 2rem;
+  text-align: center;
+  margin: 2rem auto;
+  max-width: 400px;
   min-width: 200px;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
 }
+
+.empty-state .empty-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.empty-state h3 {
+  margin: 0.5rem 0 0.25rem 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.empty-state p {
+  margin-bottom: 1.5rem;
+  color: var(--text-secondary);
+}
+
 
 .project-title strong {
   display: block;

@@ -1,3 +1,35 @@
+/* Highlight required fields with error */
+/* Theme-aware error highlight */
+.input-error {
+  border: 2px solid #f87171 !important;
+  background: transparent !important;
+  box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.2);
+}
+
+.input-error label,
+.input-error input,
+.input-error textarea,
+.input-error select {
+  color: var(--text-primary) !important;
+}
+
+.input-error::placeholder {
+  color: var(--text-secondary) !important;
+}
+
+/* Dark mode overrides */
+.dark-mode .input-error {
+  border-color: #f87171 !important;
+  background: transparent !important;
+  box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.2);
+}
+
+.dark-mode .input-error label,
+.dark-mode .input-error input,
+.dark-mode .input-error textarea,
+.dark-mode .input-error select {
+  color: var(--text-primary) !important;
+}
 .admin-project-form {
   min-height: 100vh;
   background: var(--background);

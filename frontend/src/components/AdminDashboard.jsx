@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, LogOut, Edit, Trash2, Eye, Home } from 'lucide-react';
-import axios from 'axios';
+import api, { storageUrl } from '../api';
 import { useToast } from './Toast';
 import './AdminDashboard.css';
 
@@ -26,7 +26,7 @@ const AdminDashboard = () => {
 
   const fetchProjects = () => {
     setLoading(true);
-    axios.get('http://localhost:8000/api/projects')
+    api.get('/projects')
       .then(res => {
         setProjects(res.data);
         setLoading(false);
@@ -48,7 +48,7 @@ const AdminDashboard = () => {
 
   const handleDelete = (id, title) => {
     if (window.confirm(`Are you sure you want to delete "${title}"? This action cannot be undone.`)) {
-      axios.delete(`http://localhost:8000/api/projects/${id}`)
+      api.delete(`/projects/${id}`)
         .then(() => {
           showToast(`Project "${title}" deleted successfully!`, 'success');
           fetchProjects();
@@ -214,7 +214,7 @@ const AdminDashboard = () => {
                         <td>
                           <div className="table-image-container">
                             <img 
-                              src={`http://localhost:8000/storage/${project.main_image}`}
+                              src={storageUrl(project.main_image)}
                               alt={project.title}
                               className="table-image"
                               onError={(e) => {

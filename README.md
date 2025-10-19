@@ -94,7 +94,7 @@ Notes: If you prefer WSL2 or Docker, the steps are similar but adapt commands ac
    (or yarn build for a production build)
    ```
 
-   Vite dev server defaults to something like `http://localhost:5173` — check the terminal for the exact URL. The frontend expects the backend at `http://localhost:8000` by default.
+  Vite dev server defaults to something like `http://localhost:5173` — check the terminal for the exact URL. The frontend will attempt to use the same origin by default, or you can set the backend base URL via the Vite env var `VITE_API_BASE` (see below).
 
 4. Admin login for local development
 
@@ -103,7 +103,13 @@ Notes: If you prefer WSL2 or Docker, the steps are similar but adapt commands ac
 5. Environment variables used by the code
 
 - Backend `.env` (most important): APP_URL, DB_*, FILESYSTEM_DRIVER (should default to public), MAIL settings (optional)
-- Frontend: no env file in the repo by default — API base URLs are hard-coded to `http://localhost:8000`. If you want to make this configurable, add a `.env` in `frontend/` and update axios baseURL references.
+Frontend: API base URL is configurable. By default the frontend will use the same origin (window.location.origin). To explicitly set the backend base use a Vite env var in `frontend/.env`:
+
+```
+VITE_API_BASE=http://localhost:8000
+```
+
+The app will then make requests to `${VITE_API_BASE}/api`.
 
 ## Important API endpoints (backend)
 
@@ -191,5 +197,5 @@ yarn build
 ## Contributing and notes
 
 - This project mixes admin endpoints (numeric ID) and public endpoints (slug). Keep that in mind when calling endpoints from admin UI vs public UI.
-- If you want me to add environment variable support for frontend axios baseURL or add a simple `.env` example for frontend, I can update the code to read from `import.meta.env.VITE_API_BASE` and include an `.env.example`.
+
 

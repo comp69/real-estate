@@ -18,12 +18,15 @@
   padding: 20px;
 }
 
+
 .main-image {
   max-width: 1200px;
   margin: 0 auto 20px;
   border-radius: 12px;
   overflow: hidden;
   height: 600px;
+  position: relative;
+  z-index: 1;
 }
 
 .main-image img {
@@ -204,15 +207,15 @@
 }
 
 .feature-card {
-  background: white;
+  background: var(--card-bg);
   padding: 30px;
   border-radius: 12px;
-  border: 1px solid var(--light-gray);
+  border: 1px solid var(--border-color);
   transition: all 0.3s;
 }
 
 .feature-card:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
 }
 
 .feature-icon {
@@ -246,10 +249,10 @@
 }
 
 .floorplan-card {
-  background: white;
+  background: var(--card-bg);
   border-radius: 12px;
   overflow: hidden;
-  border: 1px solid var(--light-gray);
+  border: 1px solid var(--border-color);
 }
 
 .floorplan-card img {
@@ -289,16 +292,16 @@
 }
 
 .payment-card {
-  background: white;
+  background: var(--card-bg);
   padding: 30px;
   border-radius: 12px;
-  border: 2px solid var(--light-gray);
+  border: 2px solid var(--border-color);
   transition: all 0.3s;
 }
 
 .payment-card:hover {
   border-color: var(--primary);
-  box-shadow: 0 8px 24px rgba(10, 102, 194, 0.1);
+  box-shadow: var(--shadow-colored);
 }
 
 .payment-card h3 {
@@ -325,7 +328,7 @@
 }
 
 .payment-row strong {
-  color: var(--dark);
+  color: var(--text-primary);
   font-weight: 600;
 }
 
@@ -431,7 +434,7 @@
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.95);
-  z-index: 9999;
+  z-index: 99999;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -458,7 +461,8 @@
   position: absolute;
   top: 20px;
   right: 20px;
-  background: white;
+  background: var(--card-bg);
+  color: var(--text-primary);
   border: none;
   border-radius: 50%;
   width: 48px;

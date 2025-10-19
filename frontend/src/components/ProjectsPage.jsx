@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Filter, Search, MapPin } from 'lucide-react';
-import axios from 'axios';
+import api, { storageUrl } from '../api';
 import './ProjectsPage.css';
 
 const ProjectsPage = () => {
@@ -13,7 +13,7 @@ const ProjectsPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/projects')
+    api.get('/projects')
       .then(res => {
         setProjects(res.data);
         setFilteredProjects(res.data);
@@ -163,7 +163,7 @@ const ProjectsPage = () => {
               <Link to={`/projects/${project.slug}`}>
                 <div className="project-item-image">
                   <img 
-                    src={`http://localhost:8000/storage/${project.main_image}`}
+                    src={storageUrl(project.main_image)}
                     alt={project.title}
                     onError={(e) => e.target.src = 'https://via.placeholder.com/800x500?text=Project'}
                   />

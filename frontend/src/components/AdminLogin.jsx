@@ -32,7 +32,12 @@ const AdminLogin = () => {
   };
 
   return (
-    <div className="admin-login-page">
+    <div className="admin-login-page" style={{
+      backgroundImage: 'url(https://images.unsplash.com/photo-1465101178521-c1a6f3b5f0a3?auto=format&fit=crop&w=1200&q=80)',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      minHeight: '100vh'
+    }}>
       <motion.button
         className="back-home-btn"
         onClick={() => navigate('/')}
@@ -140,8 +145,7 @@ const AdminLogin = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
         >
-          <p>Default Credentials:</p>
-          <code>Username: admin | Password: chinagroup2024</code>
+
         </motion.div>
       </motion.div>
     </div>

@@ -38,7 +38,7 @@ const ContactPage = () => {
     {
       icon: MapPin,
       title: 'Site Office',
-      details: ['Office # 207, 2nd Floor, Moiz Centre', 'Plot # A-59, Block 13-C, Main University Road', 'Gulshan-e-Iqbal, Karachi'],
+      details: ['III-B, 1/15', 'Block 3, Nazimabad', 'Karachi'],
       action: null,
       
     },
@@ -51,8 +51,7 @@ const ContactPage = () => {
     {
       icon: MapPin,
       title: 'Head Office',
-      details: ['Office # 207, 2nd Floor, Moiz Centre', 'Plot # A-59, Block 13-C, Main University Road', 'Gulshan-e-Iqbal, Karachi',
-        ],
+      details: ['III-B, 1/15', 'Block 3, Nazimabad', 'Karachi'],
       action: null
     },
     {

@@ -27,7 +27,7 @@ const Navbar = () => {
     { path: '/projects', label: 'Projects' },
     { path: '/vision', label: 'Our Vision' },
     { path: '/contact', label: 'Contact' },
-    { path: '/admin/login', label: 'Login', isLogin: true },
+  { path: '/admin/login', label: 'Login', isLogin: true },
   ];
 
   return (
@@ -66,7 +66,7 @@ const Navbar = () => {
               key={link.path}
               to={link.path}
               className={`nav-link ${location.pathname === link.path ? 'active' : ''} ${
-                link.isLogin ? 'login-link' : ''
+                link.isLogin ? 'login-link-muted' : ''
               }`}
             >
               <motion.span whileHover={{ y: -2 }} whileTap={{ y: 0 }}>
@@ -148,8 +148,8 @@ const Navbar = () => {
                 <Link
                   to={link.path}
                   className={`mobile-link ${location.pathname === link.path ? 'active' : ''} ${
-                    link.isLogin ? 'login-link' : ''
-                  }`}
+                      link.isLogin ? 'login-link-muted' : ''
+                    }`}
                   onClick={() => setMobileOpen(false)}
                 >
                   {link.label}

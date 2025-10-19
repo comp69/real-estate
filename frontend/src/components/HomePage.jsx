@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, Building2, Home, Trophy, Users } from 'lucide-react';
-import axios from 'axios';
+import api, { storageUrl } from '../api';
 import './HomePage.css';
 
 const HomePage = () => {
   const [featuredProjects, setFeaturedProjects] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/projects')
+    api.get('/projects')
       .then(res => setFeaturedProjects(res.data.filter(p => p.is_featured).slice(0, 3)))
       .catch(err => console.error(err));
   }, []);
@@ -24,7 +24,12 @@ const HomePage = () => {
   return (
     <div className="homepage">
       {/* Hero Section */}
-      <section className="hero">
+      <section className="hero" style={{
+        backgroundImage: 'url(https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=1200&q=80)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        position: 'relative'
+      }}>
         <motion.div
           className="hero-overlay"
           initial={{ opacity: 0 }}
@@ -63,6 +68,11 @@ const HomePage = () => {
         >
           <div className="scroll-line" />
         </motion.div>
+      <section className="real-estate-highlights">
+        <div className="highlights-row">
+          
+        </div>
+      </section>
       </section>
 
       {/* Stats Section */}
@@ -116,9 +126,9 @@ const HomePage = () => {
                 <Link to={`/projects/${project.slug}`}>
                   <div className="project-image">
                     <img 
-                      src={`http://localhost:8000/storage/${project.main_image}`} 
+                      src={storageUrl(project.main_image)}
                       alt={project.title}
-                      onError={(e) => e.target.src = 'https://via.placeholder.com/600x400?text=Project'}
+                      onError={(e) => e.target.src = '/images/project-placeholder.jpg'}
                     />
                     <div className="project-overlay">
                       <span className="project-status">{project.status}</span>

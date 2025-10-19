@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { MapPin, Home, Bed, Bath, Square, Phone, Mail, Download, X } from 'lucide-react';
-import axios from 'axios';
+import api, { storageUrl } from '../api';
 import './ProjectDetail.css';
 
 const ProjectDetail = () => {
@@ -14,7 +14,7 @@ const ProjectDetail = () => {
   const [modalImage, setModalImage] = useState('');
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/api/projects/${slug}`)
+    api.get(`/projects/${slug}`)
       .then(res => setProject(res.data))
       .catch(err => console.error(err));
   }, [slug]);
@@ -61,10 +61,10 @@ const ProjectDetail = () => {
           animate={{ opacity: 1 }}
         >
           <img 
-            src={`http://localhost:8000/storage/${allImages[selectedImage]}`}
+            src={storageUrl(allImages[selectedImage])}
             alt={project.title}
-            onError={(e) => e.target.src = 'https://via.placeholder.com/1200x600?text=Project'}
-            onClick={() => openImageModal(`http://localhost:8000/storage/${allImages[selectedImage]}`)}
+            onError={(e) => e.target.src = '/images/project-placeholder.jpg'}
+            onClick={() => openImageModal(storageUrl(allImages[selectedImage]))}
           />
         </motion.div>
         <div className="thumbnail-strip">
@@ -77,7 +77,7 @@ const ProjectDetail = () => {
               whileTap={{ scale: 0.95 }}
             >
               <img 
-                src={`http://localhost:8000/storage/${img}`}
+                src={storageUrl(img)}
                 alt=""
                 onError={(e) => e.target.src = 'https://via.placeholder.com/150x100'}
               />
@@ -188,10 +188,11 @@ const ProjectDetail = () => {
                     whileHover={{ scale: 1.02 }}
                   >
                     <img 
-                      src={`http://localhost:8000/storage/${plan.image_path}`}
+                      src={storageUrl(plan.image_path)}
                       alt={plan.title}
-                      onError={(e) => e.target.src = 'https://via.placeholder.com/600x400?text=Floor+Plan'}
-                      onClick={() => openImageModal(`http://localhost:8000/storage/${plan.image_path}`)}
+                      onError={(e) => e.target.src = '/images/floorplan-placeholder.jpg'}
+                      onClick={() => window.open(storageUrl(plan.image_path), '_blank')}
+                      style={{ cursor: 'zoom-in' }}
                     />
                     <div className="floorplan-info">
                       <h3>{plan.title}</h3>
@@ -266,7 +267,7 @@ const ProjectDetail = () => {
           <p>Contact us for more information and site visits</p>
           <div className="contact-buttons">
             {project.brochure_pdf && (
-              <a href={`http://localhost:8000/storage/${project.brochure_pdf}`} className="btn btn-outline" download>
+              <a href={storageUrl(project.brochure_pdf)} className="btn btn-outline" download>
                 <Download size={20} />
                 Download Brochure
               </a>

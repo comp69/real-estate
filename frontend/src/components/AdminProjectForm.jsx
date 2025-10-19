@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Save, Upload, Plus, X, Image as ImageIcon, Trash2 } from 'lucide-react';
-import axios from 'axios';
+import api, { storageUrl } from '../api';
 import { useToast } from './Toast';
 import './AdminProjectForm.css';
 
 const AdminProjectForm = () => {
+  // Track missing required fields for highlighting
+  const [missingFields, setMissingFields] = useState([]);
   const navigate = useNavigate();
   const { id } = useParams();
   const { showToast } = useToast();
@@ -79,7 +81,7 @@ const AdminProjectForm = () => {
     setLoading(true);
     try {
       // Admin endpoint expects numeric ID under /api/admin/projects/:id
-      const response = await axios.get(`http://localhost:8000/api/admin/projects/${idToUse}`);
+  const response = await api.get(`/admin/projects/${idToUse}`);
       const project = response.data;
       setProjectData(project);
       
@@ -102,7 +104,7 @@ const AdminProjectForm = () => {
 
       // Set main image preview
       if (project.main_image) {
-        setMainImagePreview(`http://localhost:8000/storage/${project.main_image}`);
+  setMainImagePreview(storageUrl(project.main_image));
       }
 
       // Set gallery images
@@ -143,12 +145,24 @@ const AdminProjectForm = () => {
   };
 
   const handleSaveBasic = async () => {
+    // Validate required fields
+    const required = [
+      { key: 'title', label: 'Project Title' },
+      { key: 'description', label: 'Description' },
+      { key: 'type', label: 'Type' },
+      { key: 'status', label: 'Status' },
+      { key: 'location', label: 'Location' }
+    ];
+    const missing = required.filter(f => !formData[f.key] || formData[f.key].trim() === '').map(f => f.key);
+    if (!mainImage && !isEdit) missing.push('main_image');
+    setMissingFields(missing);
+    if (missing.length > 0) {
+      showToast('Please fill all required fields.', 'error');
+      return;
+    }
     setSaving(true);
     const data = new FormData();
-    
-    console.log('Saving with form data:', formData);
-    
-    // Append all form fields
+    // ...existing code...
     data.append('title', formData.title);
     data.append('description', formData.description);
     data.append('type', formData.type);
@@ -158,64 +172,38 @@ const AdminProjectForm = () => {
     data.append('size_range', formData.size_range || '');
     data.append('total_units', formData.total_units || '');
     data.append('location_map', formData.location_map || '');
-    
-    // Convert booleans to 1 or 0 for Laravel
     data.append('is_featured', formData.is_featured ? '1' : '0');
     data.append('is_active', formData.is_active ? '1' : '0');
-
-    // Add contact details as JSON
     const contactDetails = {
       phone: formData.contact_phone,
       email: formData.contact_email
     };
     data.append('contact_details', JSON.stringify(contactDetails));
-
-    // Add main image if changed
     if (mainImage) {
       data.append('main_image', mainImage);
     }
-
-    // For PUT requests, add _method field
     if (isEdit) {
       data.append('_method', 'PUT');
     }
-
     try {
       let response;
       if (isEdit) {
-        console.log(`Updating project ${projectId}...`);
-        // Use POST with _method=PUT for FormData against admin endpoint
-        response = await axios.post(`http://localhost:8000/api/admin/projects/${projectId}`, data, {
-          headers: { 
-            'Content-Type': 'multipart/form-data',
-            'Accept': 'application/json'
-          }
+        response = await api.post(`/admin/projects/${projectId}`, data, {
+          headers: { 'Content-Type': 'multipart/form-data', 'Accept': 'application/json' }
         });
         showToast('Project updated successfully!', 'success');
-        
-        // Reload to get fresh data
         await loadProject();
       } else {
-        console.log('Creating new project...');
-        response = await axios.post('http://localhost:8000/api/projects', data, {
-          headers: { 
-            'Content-Type': 'multipart/form-data',
-            'Accept': 'application/json'
-          }
+        response = await api.post('/projects', data, {
+          headers: { 'Content-Type': 'multipart/form-data', 'Accept': 'application/json' }
         });
         const newId = response.data.id;
         setProjectId(newId);
         showToast('Project created successfully! You can now add gallery, features, etc.', 'success');
-        // Make the form switch into edit mode and load the fresh admin data
         await loadProject(newId);
       }
-      
-      console.log('Response:', response.data);
-      // Reload project data to get updated information (ensure we use numeric id)
       if (isEdit) {
         await loadProject();
-      } else {
-        // already loaded above for new project
       }
     } catch (error) {
       console.error('Error saving project:', error);
@@ -240,7 +228,7 @@ const AdminProjectForm = () => {
         data.append('image', file);
         data.append('caption', '');
 
-        await axios.post(`http://localhost:8000/api/projects/${projectId}/images`, data);
+  await api.post(`/projects/${projectId}/images`, data);
       }
       showToast('Gallery images uploaded successfully!', 'success');
       await loadProject(); // Reload to get updated gallery
@@ -256,7 +244,7 @@ const AdminProjectForm = () => {
     if (!window.confirm('Are you sure you want to delete this image?')) return;
 
     try {
-      await axios.delete(`http://localhost:8000/api/projects/${projectId}/images/${imageId}`);
+  await api.delete(`/projects/${projectId}/images/${imageId}`);
       showToast('Image deleted successfully', 'success');
       await loadProject(); // Reload to update gallery
     } catch (error) {
@@ -273,7 +261,7 @@ const AdminProjectForm = () => {
 
     setSaving(true);
     try {
-      await axios.post(`http://localhost:8000/api/projects/${projectId}/features`, {
+  await api.post(`/projects/${projectId}/features`, {
         feature_name: newFeature.name,
         feature_value: newFeature.value,
         icon: newFeature.icon
@@ -293,7 +281,7 @@ const AdminProjectForm = () => {
     if (!window.confirm('Are you sure you want to delete this feature?')) return;
 
     try {
-      await axios.delete(`http://localhost:8000/api/projects/${projectId}/features/${featureId}`);
+  await api.delete(`/projects/${projectId}/features/${featureId}`);
       showToast('Feature deleted successfully', 'success');
       await loadProject(); // Reload to update features
     } catch (error) {
@@ -318,7 +306,7 @@ const AdminProjectForm = () => {
     data.append('description', newFloorPlan.description);
 
     try {
-      await axios.post(`http://localhost:8000/api/projects/${projectId}/floor-plans`, data);
+  await api.post(`/projects/${projectId}/floor-plans`, data);
       setNewFloorPlan({ title: '', bedrooms: '', bathrooms: '', size: '', description: '', image: null });
       setFloorPlanImagePreview('');
       showToast('Floor plan added successfully!', 'success');
@@ -335,7 +323,7 @@ const AdminProjectForm = () => {
     if (!window.confirm('Are you sure you want to delete this floor plan?')) return;
 
     try {
-      await axios.delete(`http://localhost:8000/api/projects/${projectId}/floor-plans/${floorPlanId}`);
+  await api.delete(`/projects/${projectId}/floor-plans/${floorPlanId}`);
       showToast('Floor plan deleted successfully', 'success');
       await loadProject(); // Reload to update floor plans
     } catch (error) {
@@ -352,7 +340,7 @@ const AdminProjectForm = () => {
 
     setSaving(true);
     try {
-      await axios.post(`http://localhost:8000/api/projects/${projectId}/payment-plans`, newPaymentPlan);
+  await api.post(`/projects/${projectId}/payment-plans`, newPaymentPlan);
       setNewPaymentPlan({ plan_name: '', down_payment: '', installments: '', details: {} });
       showToast('Payment plan added successfully!', 'success');
       await loadProject(); // Reload to get updated payment plans
@@ -368,7 +356,7 @@ const AdminProjectForm = () => {
     if (!window.confirm('Are you sure you want to delete this payment plan?')) return;
 
     try {
-      await axios.delete(`http://localhost:8000/api/projects/${projectId}/payment-plans/${paymentPlanId}`);
+  await api.delete(`/projects/${projectId}/payment-plans/${paymentPlanId}`);
       showToast('Payment plan deleted successfully', 'success');
       await loadProject(); // Reload to update payment plans
     } catch (error) {
@@ -462,6 +450,7 @@ const AdminProjectForm = () => {
                     value={formData.title}
                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                     placeholder="e.g., Luxury Apartments DHA"
+                    className={missingFields.includes('title') ? 'input-error' : ''}
                   />
                 </div>
 
@@ -472,12 +461,14 @@ const AdminProjectForm = () => {
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     placeholder="Enter detailed project description..."
+                    className={missingFields.includes('description') ? 'input-error' : ''}
                   />
                 </div>
 
                 <div className="form-group">
                   <label>Type *</label>
                   <select value={formData.type} onChange={(e) => setFormData({ ...formData, type: e.target.value })}>
+                    className={missingFields.includes('type') ? 'input-error' : ''}
                     <option value="apartment">Apartment</option>
                     <option value="house">House</option>
                     <option value="commercial">Commercial</option>
@@ -487,6 +478,7 @@ const AdminProjectForm = () => {
                 <div className="form-group">
                   <label>Status *</label>
                   <select value={formData.status} onChange={(e) => setFormData({ ...formData, status: e.target.value })}>
+                    className={missingFields.includes('status') ? 'input-error' : ''}
                     <option value="upcoming">Upcoming</option>
                     <option value="ongoing">Ongoing</option>
                     <option value="completed">Completed</option>
@@ -500,6 +492,7 @@ const AdminProjectForm = () => {
                     value={formData.location}
                     onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                     placeholder="e.g., DHA Phase 8, Karachi"
+                    className={missingFields.includes('location') ? 'input-error' : ''}
                   />
                 </div>
 
@@ -576,7 +569,7 @@ const AdminProjectForm = () => {
 
                 <div className="form-group full">
                   <label>Main Project Image *</label>
-                  <div className="image-upload-area">
+                  <div className={`image-upload-area${missingFields.includes('main_image') ? ' input-error' : ''}`}>
                     {mainImagePreview && (
                       <div className="image-preview-container">
                         <img src={mainImagePreview} alt="Preview" className="image-preview" />
@@ -672,7 +665,7 @@ const AdminProjectForm = () => {
                           initial={{ opacity: 0, scale: 0.8 }}
                           animate={{ opacity: 1, scale: 1 }}
                         >
-                          <img src={`http://localhost:8000/storage/${img.image_path}`} alt={`Gallery ${img.id}`} />
+                          <img src={storageUrl(img.image_path)} alt={`Gallery ${img.id}`} />
                           <button 
                             className="delete-gallery-image"
                             onClick={() => handleDeleteGalleryImage(img.id)}
@@ -903,7 +896,7 @@ const AdminProjectForm = () => {
                           whileHover={{ scale: 1.02 }}
                         >
                           <div className="floorplan-image-container">
-                            <img src={`http://localhost:8000/storage/${plan.image_path}`} alt={plan.title} />
+                            <img src={storageUrl(plan.image_path)} alt={plan.title} />
                             <button 
                               className="delete-floorplan-btn"
                               onClick={() => handleDeleteFloorPlan(plan.id)}
